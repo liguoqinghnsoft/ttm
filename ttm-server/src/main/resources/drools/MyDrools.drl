@@ -1,0 +1,19 @@
+package  hello.drool;
+
+rule "Is of valid age"
+when
+//  $a:MyDrools(age < 18)
+//then
+//  $a.setValid(false);
+   MyDrools(age < 18)
+   $a:TwoDrools()
+   then
+   $a.setValid(false);
+end
+
+rule "Is of valid year"
+when
+   $a:TwoDrools(dateApply > "29-june-2016")
+then
+   $a.setValid(false);
+end

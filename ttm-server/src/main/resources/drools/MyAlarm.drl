@@ -1,0 +1,61 @@
+package  hello.drool;
+
+global java.util.List globalList
+
+declare MyDroolEntity
+    id : int
+    localName : String
+    createDate : java.util.Date
+end
+
+function String testMethod(String name){
+     return name;
+}
+
+rule "Is Fire"
+when
+   Fire($room:room)
+   $sprinkler:Sprinkler(room == $room,on == false)
+then
+  modify($sprinkler){setOn(true)};
+  //$sprinkler.setOn(true);
+  System.out.println("Turn on the sprinkler for room "+$room.getName());
+  globalList.add(testMethod($room.getName()));
+  //System.out.println(testMethod($room.getName()));
+end
+
+rule "Is not Fire"
+when
+   $room:Room()
+   $sprinkler:Sprinkler(room == $room,on == true)
+   not Fire(room == $room)
+then
+   modify($sprinkler){setOn(false)};
+   System.out.println("Turn off the sprinkler for room "+$room.getName());
+end
+
+rule "Turn on Alarm"
+when
+   exists Fire()
+then
+   insert(new Alarm());
+   System.out.println("Raise the alarm");
+end
+
+rule "Turn off Alarm"
+when
+   not Fire()
+   $alarm:Alarm()
+then
+   delete($alarm);
+   System.out.println("Cancel the alarm");
+end
+
+rule "Status of Sprinker"
+when
+   not Alarm()
+   not Sprinkler(on == true)
+then
+   System.out.println("Everything is OK");
+end
+

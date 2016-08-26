@@ -1,0 +1,12 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+<h3>Hi ${user.userName}, welcome to the Chipping Sodbury On-the-Hill message boards!</h3>
+
+<div>
+    Your email address is <a href="mailto:${user.identityCardNo}">${user.identityCardNo}</a>.
+</div>
+</body>
+</html>

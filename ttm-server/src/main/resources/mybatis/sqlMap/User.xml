@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ttm.basic.dal.mapper.UserMapper">
+    <resultMap id="userMap" type="User">
+        <id column="pkId" property="pkId"/>
+        <result column="userName" property="userName"/>
+        <result column="nickName" property="nickName"/>
+        <result column="identityCardNo" property="identityCardNo"/>
+
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+        <result column="isDelete" property="isDelete"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="User" keyProperty="pkId" useGeneratedKeys="true">
+        INSERT INTO test_user(userName,nickName,identityCardNo,isDelete,createTime,updateTime)
+        VALUES(#{userName},#{nickName},#{identityCardNo},#{isDelete},#{createTime},#{updateTime})
+    </insert>
+    <update id="update" parameterType="User">
+        UPDATE test_user
+        <set>
+            <if test="userName!=null and userName!=''">userName=#{userName},</if>
+            <if test="nickName!=null and nickName!=''">nickName=#{nickName},</if>
+            updateTime=#{updateTime}
+        </set>
+        <where>
+            pkId=#{pkId}
+        </where>
+    </update>
+    <delete id="delete" parameterType="Long">
+        UPDATE test_user SET  isDelete=1 WHERE pkId=#{pkId}
+    </delete>
+    <select id="select" parameterType="Map" resultMap="userMap">
+        SELECT pkId,username,nickname,identityCardNo,createTime,updateTime,isDelete
+        FROM test_user limit #{offset},#{pageSize}
+    </select>
+    <select id="count" parameterType="Map" resultType="java.lang.Long">
+        SELECT count(pkId) FROM test_user
+    </select>
+    <select id="login" parameterType="User" resultType="User">
+        SELECT pkId,username,nickname,identityCardNo,createTime,updateTime,isDelete
+        FROM test_user WHERE username=#{userName} AND identityCardNo=#{identityCardNo}
+    </select>
+
+</mapper>
