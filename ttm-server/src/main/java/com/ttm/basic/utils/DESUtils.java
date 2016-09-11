@@ -40,7 +40,7 @@ public class DESUtils {
             SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(KEY_ALGORITHM);
             SecretKey secretKey1 = secretKeyFactory.generateSecret(desKeySpec);
             cipher.init(Cipher.ENCRYPT_MODE,secretKey1,sr);
-            result = Base64.encodeBase64String(cipher.doFinal(data.getBytes()));
+            result = Base64.encodeBase64String(cipher.doFinal(data.getBytes("UTF-8")));
         } catch (Exception e) {
             e.printStackTrace();
         }

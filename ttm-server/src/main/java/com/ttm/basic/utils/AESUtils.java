@@ -32,10 +32,10 @@ public class AESUtils {
      */
     public static String encrypt(String secretKey,String data){
         String result = null;
-        Key key = restoreKey(Base64.decodeBase64(secretKey));
         try {
+             Key key = restoreKey(secretKey.getBytes("UTF-8"));
              cipher.init(Cipher.ENCRYPT_MODE,key);
-             result = Base64.encodeBase64String(cipher.doFinal(data.getBytes()));
+             result = Base64.encodeBase64String(cipher.doFinal(data.getBytes("UTF-8")));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,8 +50,8 @@ public class AESUtils {
      */
     public static String decrypt(String secretKey,String data){
         String result = null;
-        Key key = restoreKey(Base64.decodeBase64(secretKey));
         try {
+            Key key = restoreKey(secretKey.getBytes("UTF-8"));
             cipher.init(Cipher.DECRYPT_MODE,key);
             result = new String(cipher.doFinal(Base64.decodeBase64(data)),"UTF-8");
         } catch (Exception e) {
