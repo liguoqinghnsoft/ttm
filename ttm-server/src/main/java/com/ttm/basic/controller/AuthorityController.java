@@ -33,7 +33,7 @@ public class AuthorityController {
             CookieUtils cookieUtils = CookieHelper.INSTANCE.cookieUtils;
             cookieUtils.setRequest(request);
             cookieUtils.setResponse(response);
-            cookieUtils.addCookie("_mtk",cookieUtils.encryptCookie("nUVFYmEAMjpyXL7KZSX1ow==",user.getUserName()+"|"+"1001"),60);
+            cookieUtils.addCookie("_mtk",cookieUtils.encryptCookie("nUVFYmEAMjpyXL7K",user.getUserName()+"|"+"1001"),60);
         }
         return user;
     }

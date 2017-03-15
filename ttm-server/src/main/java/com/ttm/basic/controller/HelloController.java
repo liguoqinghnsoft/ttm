@@ -6,6 +6,7 @@ import com.ttm.basic.api.dto.DataObject;
 import com.ttm.basic.api.dto.UserDTO;
 import com.ttm.basic.api.validator.DataObjectValidator;
 import com.ttm.basic.dal.model.User;
+import com.ttm.basic.exception.GlobalException;
 import com.ttm.basic.service.UserService;
 import com.ttm.basic.utils.ValidatorUtils;
 import org.apache.velocity.app.VelocityEngine;
@@ -98,6 +99,7 @@ public class HelloController {
         //testService.testServiceSayOK();
         //System.out.println("workValue:"+workValue);
         validatorUtils.checkEmail("test@123.com");
+        throw new GlobalException("已知异常!");
     }
 
     @Resource
@@ -113,7 +115,7 @@ public class HelloController {
         model.setUserName("test-update");
         model.setNickName("测试更新");
         model.setIdentityCardNo("431111232394857383");
-        model.setIsDelete(false);
+        model.setStatus(true);
         userService.saveOrUpdate(model);
         System.out.println("pkId->"+model.getPkId());
     }

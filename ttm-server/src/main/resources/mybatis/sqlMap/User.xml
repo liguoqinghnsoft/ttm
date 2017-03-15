@@ -9,12 +9,12 @@
 
         <result column="createTime" property="createTime"/>
         <result column="updateTime" property="updateTime"/>
-        <result column="isDelete" property="isDelete"/>
+        <result column="status" property="status"/>
     </resultMap>
 
     <insert id="insert" parameterType="User" keyProperty="pkId" useGeneratedKeys="true">
-        INSERT INTO test_user(userName,nickName,identityCardNo,isDelete,createTime,updateTime)
-        VALUES(#{userName},#{nickName},#{identityCardNo},#{isDelete},#{createTime},#{updateTime})
+        INSERT INTO test_user(userName,nickName,identityCardNo,status,createTime,updateTime)
+        VALUES(#{userName},#{nickName},#{identityCardNo},#{status},#{createTime},#{updateTime})
     </insert>
     <update id="update" parameterType="User">
         UPDATE test_user
@@ -31,14 +31,14 @@
         UPDATE test_user SET  isDelete=1 WHERE pkId=#{pkId}
     </delete>
     <select id="select" parameterType="Map" resultMap="userMap">
-        SELECT pkId,username,nickname,identityCardNo,createTime,updateTime,isDelete
+        SELECT pkId,username,nickname,identityCardNo,createTime,updateTime,status
         FROM test_user limit #{offset},#{pageSize}
     </select>
     <select id="count" parameterType="Map" resultType="java.lang.Long">
         SELECT count(pkId) FROM test_user
     </select>
     <select id="login" parameterType="User" resultType="User">
-        SELECT pkId,username,nickname,identityCardNo,createTime,updateTime,isDelete
+        SELECT pkId,username,nickname,identityCardNo,createTime,updateTime,status
         FROM test_user WHERE username=#{userName} AND identityCardNo=#{identityCardNo}
     </select>
 

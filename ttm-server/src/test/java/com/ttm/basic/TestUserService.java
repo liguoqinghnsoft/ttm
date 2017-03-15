@@ -33,7 +33,7 @@ public class TestUserService {
         model.setUserName("test-update");
         model.setNickName("测试更新");
         model.setIdentityCardNo("431111232394857383");
-        model.setIsDelete(false);
+        model.setStatus(true);
         userService.saveOrUpdate(model);
     }
 

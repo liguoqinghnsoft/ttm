@@ -33,7 +33,7 @@ public class User implements Serializable{
     //更新时间
     private Date updateTime;
     //逻辑删除状态位
-    private Boolean isDelete;
+    private Boolean status;
 
 
     public Boolean getIsNew() {
@@ -92,12 +92,12 @@ public class User implements Serializable{
         this.createTime = createTime;
     }
 
-    public Boolean getIsDelete() {
-        return isDelete;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setIsDelete(Boolean isDelete) {
-        this.isDelete = isDelete;
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 
     @Override
@@ -109,7 +109,7 @@ public class User implements Serializable{
                 ", identityCardNo='" + identityCardNo + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
-                ", isDelete=" + isDelete +
+                ", status=" + status +
                 '}';
     }
 }

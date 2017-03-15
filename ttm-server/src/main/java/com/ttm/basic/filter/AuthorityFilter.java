@@ -33,7 +33,7 @@ public class AuthorityFilter implements Filter{
         if(null == cookie || null == cookie.getValue()){
             throw new RuntimeException("用户未登录");
         }
-        String value = cookieUtils.decryptCookie("nUVFYmEAMjpyXL7KZSX1ow==",cookie.getValue());
+        String value = cookieUtils.decryptCookie("nUVFYmEAMjpyXL7K",cookie.getValue());
         if(null != value){
             String[] res = value.split("\\|");
             logger.info("doFilter res[0]:{}",res[0]);
