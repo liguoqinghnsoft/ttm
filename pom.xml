@@ -36,6 +36,7 @@
         <jackson.dataformat.version>2.7.4</jackson.dataformat.version>
         <velocity.version>1.7</velocity.version>
         <rocketmq.version>3.2.5</rocketmq.version>
+        <guava.version>19.0</guava.version>
     </properties>
 
     <parent>
@@ -244,6 +245,12 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-compiler</artifactId>
             <version>${scala.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
 
         <dependency>
