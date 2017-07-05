@@ -15,7 +15,7 @@ import java.util.concurrent.RecursiveTask;
 public class TestOptional {
 
     @Test
-    public void testOptional(){
+    public void testOptional() {
 //        Optional<String> optional = Optional.of("123");
 //        System.out.println(optional.get());
 //        optional = Optional.of(null);
@@ -29,16 +29,20 @@ public class TestOptional {
 //        System.out.println(user.isPresent());
 
         List<User> users = new ArrayList<>();
-        users.stream().filter(i -> i.getPkId() >0 ).findAny().orElseThrow(() -> new GlobalException("Exception..."));
+        users.stream().filter(i -> i.getPkId() > 0).findAny().orElseThrow(() -> new GlobalException("Exception..."));
 
 
     }
 
     @Test
-    public void testLambda(){
-        List<String> list = Arrays.asList("123","abc","cdx","232");
-        Collections.sort(list,(a,b)->{return b.compareTo(a);});
-        list.forEach(a->{System.out.println(a);});
+    public void testLambda() {
+        List<String> list = Arrays.asList("123", "abc", "cdx", "232");
+        Collections.sort(list, (a, b) -> {
+            return b.compareTo(a);
+        });
+        list.forEach(a -> {
+            System.out.println(a);
+        });
 
 //        IPerson<String,Integer> ip = Integer::valueOf;
 //        int result = ip.convert("123X");
@@ -48,13 +52,13 @@ public class TestOptional {
     }
 
     @Test
-    public void testFork(){
+    public void testFork() {
         ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
         //System.out.println(forkJoinPool.invoke(new TestFork()));
-        int start = 1,end = 100;
+        int start = 1, end = 100;
         try {
-            System.out.println(""+start+"->"+end+" sum=" + forkJoinPool.submit(new TestFork(start, end)).get());
-            System.out.println("stealCount="+forkJoinPool.getStealCount()+",activeThreadCount="+forkJoinPool.getActiveThreadCount()+",parallelism="+forkJoinPool.getParallelism());
+            System.out.println("" + start + "->" + end + " sum=" + forkJoinPool.submit(new TestFork(start, end)).get());
+            System.out.println("stealCount=" + forkJoinPool.getStealCount() + ",activeThreadCount=" + forkJoinPool.getActiveThreadCount() + ",parallelism=" + forkJoinPool.getParallelism());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -62,29 +66,32 @@ public class TestOptional {
         }
     }
 
-    class TestFork extends RecursiveTask<Integer>{
+    class TestFork extends RecursiveTask<Integer> {
         private static final long serialVersionUID = -1580525412387470003L;
 
         private int start;
         private int end;
-        public TestFork(){}
-        public TestFork(int start,int end){
-            this.start=start;
-            this.end=end;
+
+        public TestFork() {
+        }
+
+        public TestFork(int start, int end) {
+            this.start = start;
+            this.end = end;
         }
 
         @Override
         protected Integer compute() {
             int sum = 0;
-            if(end - start <= 2){
-                for(int i=start;i<=end;i++){
+            if (end - start <= 2) {
+                for (int i = start; i <= end; i++) {
                     sum += i;
                 }
-            }else{
+            } else {
                 int middle = (end + start) / 2;
-                TestFork rTestFork = new TestFork(middle+1,end); //6,10 ,4,5
-                TestFork lTestFork = new TestFork(start,middle);//
-                System.out.println("middle="+middle+",start="+start+",end="+end);
+                TestFork rTestFork = new TestFork(middle + 1, end); //6,10 ,4,5
+                TestFork lTestFork = new TestFork(start, middle);//
+                System.out.println("middle=" + middle + ",start=" + start + ",end=" + end);
                 rTestFork.fork();
                 lTestFork.fork();
                 int rS = rTestFork.join();
@@ -95,19 +102,19 @@ public class TestOptional {
         }
     }
 
-    private Long idGen = new Long(5000L);
+    private Long idGen = new Long(0L);
 
     @Test
-    public void testIDGen(){
+    public void testIDGen() {
         ArrayList Ids = new ArrayList();
-        for(int i=0;i<5000;i++){
-            while(this.idGen.longValue() ==0L || this.idGen.longValue() /10L%10L !=0L || this.idGen.longValue() /100L%10L !=0L){
+        for (int i = 0; i < 20; i++) {
+            while (this.idGen.longValue() == 0L || this.idGen.longValue() / 10L % 10L != 0L || this.idGen.longValue() / 1000L % 10L != 0L) {
                 this.idGen = Long.valueOf(this.idGen.longValue() + 1L);
             }
             Ids.add(this.idGen);
             this.idGen = Long.valueOf(this.idGen.longValue() + 1L);
         }
-        Ids.forEach(v->System.out.println(v));
+        Ids.forEach(v -> System.out.println(v));
     }
 
 }
